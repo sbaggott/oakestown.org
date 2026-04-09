@@ -45,11 +45,11 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 a:hover {
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 img {
@@ -58,9 +58,7 @@ img {
   display: block;
 }
 
-ul, ol {
-  list-style: none;
-}
+/* Components reset their own list styles to avoid VoiceOver regressions */
 
 .container {
   max-width: var(--max-width);
@@ -70,6 +68,9 @@ ul, ol {
 
 section {
   padding: 72px 40px;
+}
+
+section + section {
   border-top: 1px solid var(--border);
 }
 

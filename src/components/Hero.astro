@@ -1,0 +1,91 @@
+---
+
+---
+
+<section class="hero">
+  <div class="hero-inner container">
+    <div class="hero-photo">
+      <img
+        src="/images/kaya-oakes.jpg"
+        alt="Kaya Oakes"
+        width="200"
+        height="200"
+        loading="eager"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+      />
+      <div class="hero-photo-placeholder" aria-hidden="true">KO</div>
+    </div>
+    <div class="hero-text">
+      <h1>Kaya<br />Oakes</h1>
+      <p class="tagline">Essayist &middot; Journalist &middot; Teacher</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 80px 40px;
+    border-top: none;
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .hero-photo {
+    flex-shrink: 0;
+    position: relative;
+    width: 180px;
+    height: 180px;
+  }
+
+  .hero-photo img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .hero-photo-placeholder {
+    display: none;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: #f0ece8;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .hero-text h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.0;
+    margin-bottom: 16px;
+  }
+
+  .tagline {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .hero-inner {
+      flex-direction: column;
+      gap: 32px;
+      text-align: center;
+    }
+  }
+</style>

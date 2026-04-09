@@ -5,7 +5,7 @@ interface Props {
   year: number;
   description: string;
   endorsements: Array<{ quote: string; attribution: string }>;
-  cover: string;
+  cover?: string;
 }
 
 const { title, publisher, year, description, endorsements, cover } = Astro.props;
@@ -13,12 +13,14 @@ const { title, publisher, year, description, endorsements, cover } = Astro.props
 
 <div class="book-card">
   <div class="book-cover">
-    <img
-      src={cover}
-      alt={`Cover of ${title}`}
-      loading="lazy"
-      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-    />
+    {cover && (
+      <img
+        src={cover}
+        alt={`Cover of ${title}`}
+        loading="lazy"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+      />
+    )}
     <div class="cover-placeholder" aria-hidden="true"></div>
   </div>
   <div class="book-info">

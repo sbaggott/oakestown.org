@@ -1,0 +1,42 @@
+---
+import BookCard from './BookCard.astro';
+import booksData from '../data/books.json';
+
+interface Book {
+  title: string;
+  publisher: string;
+  year: number;
+  description: string;
+  endorsements: Array<{ quote: string; attribution: string }>;
+  cover: string;
+}
+
+const books = booksData as Book[];
+---
+
+<section id="books" class="books" aria-labelledby="books-heading">
+  <div class="container">
+    <p class="section-label">Books</p>
+    <h2 class="section-title" id="books-heading">Selected Works</h2>
+    <div class="books-list">
+      {books.map(book => (
+        <BookCard
+          title={book.title}
+          publisher={book.publisher}
+          year={book.year}
+          description={book.description}
+          endorsements={book.endorsements}
+          cover={book.cover}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .books-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+</style>

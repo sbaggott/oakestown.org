@@ -1,0 +1,91 @@
+---
+import essaysData from '../data/essays.json';
+
+interface Essay {
+  title: string;
+  publication: string;
+  url: string | null;
+}
+
+const essays = essaysData as Essay[];
+---
+
+<section id="essays" class="essays" aria-labelledby="essays-heading">
+  <div class="container">
+    <p class="section-label">Selected Essays &amp; Journalism</p>
+    <h2 class="section-title" id="essays-heading">Writing</h2>
+    <ul class="essays-list" role="list">
+      {essays.map(essay => (
+        <li class="essay-item">
+          <span class="essay-pub">{essay.publication}</span>
+          {essay.url
+            ? <a href={essay.url} target="_blank" rel="noopener noreferrer" class="essay-title">{essay.title}</a>
+            : <span class="essay-title">{essay.title}</span>
+          }
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .essays {
+    background: var(--bg-alt);
+  }
+
+  .essays-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+  }
+
+  .essay-item {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .essay-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .essay-pub {
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+
+  .essay-title {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  a.essay-title {
+    color: var(--text);
+    transition: color 0.2s;
+  }
+
+  a.essay-title:hover {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    .essay-item {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .essay-pub {
+      min-width: unset;
+    }
+  }
+</style>

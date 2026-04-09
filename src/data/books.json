@@ -1,0 +1,75 @@
+[
+  {
+    "title": "Not So Sorry: Abusers, False Apologies, and the Limits of Forgiveness",
+    "publisher": "Broadleaf Books",
+    "year": 2024,
+    "description": "A nuanced exploration of forgiveness in cases of abuse and systemic wrongdoing. Examines how forgiveness is often weaponized against victims, spanning topics from Catholic Church scandals to high-profile abuse cases.",
+    "endorsements": [
+      {
+        "quote": "Kaya Oakes challenges those slippery, PR-constructed apologies… allows us to wrestle with our assumptions.",
+        "attribution": "Rev. Carol Howard"
+      },
+      {
+        "quote": "A thoughtful meditation… with compassion, curiosity, and conviction.",
+        "attribution": "Michael J. O'Loughlin"
+      }
+    ],
+    "cover": "/images/books/not-so-sorry.jpg"
+  },
+  {
+    "title": "The Defiant Middle: How Women Claim Life's In-Betweens to Remake the World",
+    "publisher": "Broadleaf Books",
+    "year": 2021,
+    "description": "Examines how women navigate societal contradictions and life transitions, drawing on histories of female mystics. Argues that marginalized female identities can be spiritually transformative and world-changing.",
+    "endorsements": [
+      {
+        "quote": "A provocative book… will challenge cultural and religious norms.",
+        "attribution": "Fran Rossi Szpylczyn"
+      },
+      {
+        "quote": "The book I didn't know I needed to read… an enlightening rumination.",
+        "attribution": "Kristin Kobes Du Mez"
+      }
+    ],
+    "cover": "/images/books/defiant-middle.jpg"
+  },
+  {
+    "title": "The Nones Are Alright: A New Generation of Seekers, Believers, and Those In Between",
+    "publisher": "Orbis Books",
+    "year": 2015,
+    "description": "Profiles dozens of Gen X and Gen Y individuals exploring why up to 40% of two generations lack religious affiliation. Contrasts stories of atheists, converts, and those redefining childhood faith traditions.",
+    "endorsements": [
+      {
+        "quote": "The Growing Up Absurd for 21st century religion.",
+        "attribution": "Nathan Schneider"
+      }
+    ],
+    "cover": "/images/books/nones-are-alright.jpg"
+  },
+  {
+    "title": "Radical Reinvention: An Unlikely Return to the Catholic Church",
+    "publisher": "Counterpoint Press",
+    "year": 2012,
+    "description": "A memoir of personal transformation from atheist punk rocker to amateur theologian, exploring the author's return to Catholicism while examining the faith's evolution.",
+    "endorsements": [
+      {
+        "quote": "Gorgeous prose… overview and history of the best of the Catholic faith.",
+        "attribution": "Publishers Weekly"
+      }
+    ],
+    "cover": "/images/books/radical-reinvention.jpg"
+  },
+  {
+    "title": "Slanted and Enchanted: The Evolution of Indie Culture",
+    "publisher": "Faber & Faber",
+    "year": 2009,
+    "description": "Examines indie culture's DIY ethos through interviews with artists including Mike Watt, Kathleen Hanna, and Dan Clowes. Explores how indie maintains core ideals of experimentation and collaboration.",
+    "endorsements": [
+      {
+        "quote": "With uncommon insight… makes an impassioned case for indie's vitality.",
+        "attribution": "San Francisco Chronicle"
+      }
+    ],
+    "cover": "/images/books/slanted-and-enchanted.jpg"
+  }
+]

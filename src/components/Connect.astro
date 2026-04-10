@@ -1,0 +1,82 @@
+---
+
+---
+
+<section id="connect" class="connect" aria-labelledby="connect-heading">
+  <div class="container">
+    <p class="section-label">Connect</p>
+    <h2 class="section-title" id="connect-heading">Get in Touch</h2>
+    <div class="connect-grid">
+      <div class="connect-item">
+        <h3>Email</h3>
+        <a href="mailto:kayaoakes@gmail.com">kayaoakes@gmail.com</a>
+        <p>For speaking inquiries, questions, and general correspondence.</p>
+      </div>
+      <div class="connect-item">
+        <h3>Newsletter</h3>
+        <a href="https://kayaoakes.substack.com" target="_blank" rel="noopener noreferrer">
+          kayaoakes.substack.com
+        </a>
+      </div>
+      <div class="connect-item">
+        <h3>Literary Representation</h3>
+        <a href="https://trellisliterary.com/michelle-brower" target="_blank" rel="noopener noreferrer">
+          Michelle Brower
+        </a>
+        <p>Trellis Literary Management</p>
+      </div>
+      <div class="connect-item">
+        <h3>Social</h3>
+        <a href="https://twitter.com/kayaoakes" target="_blank" rel="noopener noreferrer">
+          Twitter @kayaoakes
+        </a>
+        <br />
+        <a href="https://instagram.com/kayaoakeswrites" target="_blank" rel="noopener noreferrer">
+          Instagram @kayaoakeswrites
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .connect-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 60px;
+  }
+
+  .connect-item h3 {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .connect-item a {
+    font-size: 1rem;
+    color: var(--text);
+    display: inline-block;
+  }
+
+  .connect-item a:hover {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  .connect-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .connect-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>

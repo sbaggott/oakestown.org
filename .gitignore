@@ -8,10 +8,8 @@ yarn-error.log*
 /.pnp
 .pnp.js
 
-.vscode/*
 dist/
 .astro/
-.wrangler/
 
 .idea/*
 .superpowers/

@@ -3,53 +3,41 @@ interface Props {
   title: string;
   publisher: string;
   year: number;
-  description: string;
+  description: Array<string>;
   endorsements: Array<{ quote: string; attribution: string }>;
   cover?: string;
 }
 
-const { title, publisher, year, description, endorsements, cover } = Astro.props;
+const {title, publisher, year, description, endorsements, cover} = Astro.props;
 ---
 
-<div class="book-card">
-  <div class="book-cover">
-    {cover && (
-      <img
-        src={cover}
-        alt={`Cover of ${title}`}
-        loading="lazy"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-      />
-    )}
-    <div class="cover-placeholder" aria-hidden="true"></div>
-  </div>
-  <div class="book-info">
-    <h3>{title}</h3>
-    <p class="publisher">{publisher}, {year}</p>
-    <p class="description">{description}</p>
-    {endorsements.length > 0 && (
-      <blockquote>
-        <p>"{endorsements[0].quote}"</p>
-        <cite>— {endorsements[0].attribution}</cite>
-      </blockquote>
-    )}
-  </div>
+<div>
+  {cover && (
+    <img
+      src={cover}
+      class="book-cover"
+      alt={`Cover of ${title}`}
+      loading="lazy"
+    />
+  )}
+  <h3>{title}</h3>
+  <p class="publisher">{publisher}, {year}</p>
+  {description.map((paragraph: string) => (
+    <p class="description" set:html={paragraph}/>
+  ))}
+  {endorsements.length > 0 && endorsements.map((endorsement) => (
+    <blockquote>
+      <p>“{endorsement.quote}”</p>
+      <cite>— {endorsement.attribution}</cite>
+    </blockquote>
+  ))}
 </div>
 
 <style>
-  .book-card {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-  }
-
-  .book-cover {
-    flex-shrink: 0;
-    width: 100px;
-  }
-
-  .book-cover img {
-    width: 100px;
+  img.book-cover {
+    float: left;
+    margin-right: 24px;
+    width: 200px;
     border: 1px solid var(--border);
   }
 
@@ -62,7 +50,7 @@ const { title, publisher, year, description, endorsements, cover } = Astro.props
   }
 
   .book-info h3 {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading), sans-serif;
     font-size: 1rem;
     font-weight: 700;
     color: var(--text);
@@ -71,7 +59,7 @@ const { title, publisher, year, description, endorsements, cover } = Astro.props
   }
 
   .publisher {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading), sans-serif;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -81,7 +69,7 @@ const { title, publisher, year, description, endorsements, cover } = Astro.props
   }
 
   .description {
-    font-size: 0.92rem;
+    font-size: 1rem;
     color: var(--text-muted);
     line-height: 1.65;
     margin-bottom: 12px;
@@ -90,11 +78,11 @@ const { title, publisher, year, description, endorsements, cover } = Astro.props
   blockquote {
     border-left: 2px solid var(--accent);
     padding-left: 12px;
-    margin-top: 10px;
+    margin-top: 16px;
   }
 
   blockquote p {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     font-style: italic;
     color: var(--text-muted);
     line-height: 1.6;
@@ -102,10 +90,22 @@ const { title, publisher, year, description, endorsements, cover } = Astro.props
 
   blockquote cite {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-style: normal;
-    font-family: var(--font-heading);
+    font-family: var(--font-heading), sans-serif;
     color: var(--text-muted);
     margin-top: 6px;
+  }
+
+  @media only screen and (min-width: 360px) and (max-width: 768px) {
+    img.book-cover {
+      margin-right: 12px;
+      width: 100px;
+    }
+
+    .book-info h3 {
+      font-size: 0.7rem;
+      line-height: 1.2;
+    }
   }
 </style>

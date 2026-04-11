@@ -6,7 +6,7 @@ interface Book {
   title: string;
   publisher: string;
   year: number;
-  description: string;
+  description: Array<string>;
   endorsements: Array<{ quote: string; attribution: string }>;
   cover: string;
 }
@@ -16,7 +16,6 @@ const books = booksData as Book[];
 
 <section id="books" class="books" aria-labelledby="books-heading">
   <div class="container">
-    <p class="section-label">Books</p>
     <h2 class="section-title" id="books-heading">Selected Works</h2>
     <div class="books-list">
       {books.map(book => (

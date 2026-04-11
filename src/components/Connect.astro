@@ -4,7 +4,6 @@
 
 <section id="connect" class="connect" aria-labelledby="connect-heading">
   <div class="container">
-    <p class="section-label">Connect</p>
     <h2 class="section-title" id="connect-heading">Get in Touch</h2>
     <div class="connect-grid">
       <div class="connect-item">
@@ -25,20 +24,15 @@
         </a>
         <p>Trellis Literary Management</p>
       </div>
-      <div class="connect-item">
-        <h3>Social</h3>
-        <p><a href="https://x.com/kayaoakes" target="_blank" rel="noopener noreferrer">Twitter @kayaoakes</a></p>
-        <p><a href="https://instagram.com/kayaoakeswrites" target="_blank" rel="noopener noreferrer">Instagram @kayaoakeswrites</a></p>
-      </div>
     </div>
   </div>
 </section>
 
 <style>
   .connect-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
   }
 
   .connect-item h3 {
@@ -70,7 +64,6 @@
 
   @media (max-width: 600px) {
     .connect-grid {
-      grid-template-columns: 1fr;
       gap: 28px;
     }
   }

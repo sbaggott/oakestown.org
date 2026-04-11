@@ -3,20 +3,18 @@
 ---
 
 <section class="hero">
-  <div class="hero-inner container">
+  <div class="hero-inner">
     <div class="hero-photo">
       <img
-        src="/images/kaya-oakes.jpg"
+        src="/images/kaya-hero.jpg"
         alt="Kaya Oakes"
-        width="180"
-        height="180"
+        width="225"
+        height="225"
         loading="eager"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
       />
-      <div class="hero-photo-placeholder" aria-hidden="true">KO</div>
     </div>
     <div class="hero-text">
-      <h1>Kaya<br />Oakes</h1>
+      <h1>Kaya Oakes</h1>
       <p class="tagline">Essayist &middot; Journalist &middot; Teacher</p>
     </div>
   </div>
@@ -26,40 +24,39 @@
   .hero {
     padding: 80px 40px;
     border-top: none;
+    background-image: url('/images/hero-bkgrnd.jpg');
+    background-size: cover;
+    background-position: center 90%;
+    background-blend-mode: overlay;
   }
 
   .hero-inner {
     display: flex;
     align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
     gap: 60px;
   }
 
   .hero-photo {
     flex-shrink: 0;
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 225px;
+    height: 225px;
   }
 
   .hero-photo img {
-    width: 180px;
-    height: 180px;
+    width: 225px;
+    height: 225px;
     border-radius: 50%;
     object-fit: cover;
   }
 
-  .hero-photo-placeholder {
-    display: none;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background: #f0ece8;
+  .hero-text {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
   }
 
   .hero-text h1 {
@@ -68,7 +65,7 @@
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text);
+    color: var(--bg);
     line-height: 1.0;
     margin-bottom: 16px;
   }
@@ -81,11 +78,36 @@
     text-transform: uppercase;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .hero-inner {
       flex-direction: column;
       gap: 32px;
       text-align: center;
+    }
+
+    .hero-photo {
+      width: 225px;
+      height: 225px;
+    }
+
+    .hero-photo img {
+      width: 225px;
+      height: 225px;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(1.5rem, 5vw, 1.8rem);
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      letter-spacing: 1.2px;
     }
   }
 </style>

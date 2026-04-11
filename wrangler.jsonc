@@ -1,10 +1,18 @@
 {
-  "name": "oakestown-org",
-  "compatibility_date": "2026-02-12",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "assets": {
-    "directory": "./dist"
-  }
+	"name": "oakestown-org",
+	"compatibility_date": "2026-02-12",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"directory": "./dist"
+	},
+	"d1_databases": [
+		{
+			"binding": "prod_d1_oakestown",
+			"database_name": "prod-d1-oakestown",
+			"database_id": "c4f51b2e-8413-4d84-bd45-fa283624822b",
+			"remote": true
+		}
+	]
 }

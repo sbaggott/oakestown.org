@@ -1,17 +1,92 @@
 [
-  { "title": "Ask Better Questions", "publication": "Commonweal", "url": null },
-  { "title": "The \"New Menopause\" Is the Same Old Patriarchal BS", "publication": "Residuum", "url": null },
-  { "title": "Whose Sin Is It Anyway", "publication": "The Revealer", "url": null },
-  { "title": "What \"Drag Nuns\" Get Right About Faith", "publication": "Sojourners", "url": null },
-  { "title": "Nick Cave Wants to Be Your Spiritual Director", "publication": "America", "url": null },
-  { "title": "On Forgiveness, Clergy Abuse, and Healing", "publication": "The Revealer", "url": null },
-  { "title": "Letter from California", "publication": "Commonweal", "url": null },
-  { "title": "This is Your Soul on Mysticism", "publication": "America", "url": null },
-  { "title": "We Are Not Middle Aged", "publication": "On Being", "url": null },
-  { "title": "Mary: Always Radical Mother", "publication": "Religion News Service", "url": null },
-  { "title": "A School Grows in Oakland", "publication": "America", "url": null },
-  { "title": "Popesplaining", "publication": "Religion Dispatches", "url": null },
-  { "title": "Lay Down Your Weary Tune", "publication": "Killing the Buddha", "url": null },
-  { "title": "The Conservative Resistance Inside the Vatican", "publication": "The New Republic", "url": null },
-  { "title": "I Got Shushed at a Yo-Yo Ma Concert", "publication": "Slate", "url": null }
+  {
+    "title": "Ask Better Questions",
+    "publication": "Commonweal",
+    "url": "https://www.commonwealmagazine.org/ask-better-questions",
+    "quote": "People have never stopped seeking God, transcendence, spirit, or community. They’re just not finding any of those things in church."
+  },
+  {
+    "title": "The \"New Menopause\" Is the Same Old Patriarchal BS",
+    "publication": "Residuum",
+    "url": "https://kayaoakes.substack.com/p/the-new-menopause-is-the-same-old",
+    "quote": "The new midlife, as it turns out, is much more accessible if you’re rich."
+  },
+  {
+    "title": "Whose Sin Is It Anyway",
+    "publication": "The Revealer",
+    "url": "https://therevealer.org/whose-sin-is-it-anyway-catholics-abortion-and-what-comes-next/",
+    "quote": "For many in the coming weeks, months, and years who will see suffering and death wrought by the end of Roe, including another 10-year-old girl in Ohio, that same conscience may well lead them away from the church that brought about that end."
+  },
+  {
+    "title": "What \"Drag Nuns\" Get Right About Faith",
+    "publication": "Sojourners",
+    "url": "https://sojo.net/articles/what-drag-nuns-get-right-about-catholic-faith",
+    "quote": "The daughter of a king, Wilgefortis was promised in marriage to a man she didn’t want, and in answer to her prayers for liberation, <a href=\"https://artuk.org/discover/stories/saint-wilgefortis-a-bearded-woman-with-a-queer-history\">God caused her to sprout a miraculous beard.</a>"
+  },
+  {
+    "title": "Nick Cave Wants to Be Your Spiritual Director",
+    "publication": "America",
+    "url": "https://www.americamagazine.org/arts-culture/2022/05/19/nick-cave-red-hand-files-242982",
+    "quote": "Our secular age still needs preachers, but even more, it needs pastors."
+  },
+  {
+    "title": "On Forgiveness, Clergy Abuse, and the Need for New Understandings",
+    "publication": "The Revealer",
+    "url": "https://therevealer.org/from-the-archive-on-forgiveness-clergy-abuse-and-the-need-for-new-understandings/",
+    "quote": "The Church can write checks to its heart’s content, bankrupt dioceses, stage Reparation Masses, build “healing gardens,” and beg for forgiveness. But until it owns up to the fact that it has not allowed adequate space for victims to express themselves, confront their abusers, and thus begin to heal, no true acts of atonement have been performed."
+  },
+  {
+    "title": "Letter from California",
+    "publication": "Commonweal",
+    "url": "https://www.commonwealmagazine.org/letter-california-0",
+    "quote": "Californians have adapted. We know what to do in a disaster. Stop, drop, and do your best to hold on."
+  },
+  {
+    "title": "This is Your Soul on Mysticism",
+    "publication": "America",
+    "url": "https://www.americamagazine.org/faith/2020/12/17/mysticism-covid-19-julian-norwich-239506",
+    "quote": "Some of us work at home, anchorites tethered to our Wi-Fi connections, where we peer not through windows into the outside world like Julian, but into virtual windows that lead us into other people’s rooms, where they sit peering back into our rooms, monastic cells upon monastic cells, multiplying and dividing as we log on and off."
+  },
+  {
+    "title": "We Are Not Middle Aged",
+    "publication": "On Being",
+    "url": "https://onbeing.org/blog/kaya-oakes-we-are-not-middle-aged-what-medieval-women-taught-me-about-my-40s/",
+    "quote": "It starts happening before you realize it and by the time you do, the slow, grinding erasures have already begun."
+  },
+  {
+    "title": "Mary: Our often reimagined, always radical mother",
+    "publication": "Religion News Service",
+    "url": "https://www.oakestown.org/essays/Our%20often%20reimagined,%20always%20radical%20mother",
+    "quote": "Mary [is not] a sentimentally perfect woman, meek, mild and passive, a religious Hallmark card who has come to represent the idealized mother figure most of our own mothers would struggle to measure up to."
+  },
+  {
+    "title": "A School Grows in Oakland",
+    "publication": "America",
+    "url": "https://www.americamagazine.org/faith/2020/03/06/how-jesuits-and-christian-brothers-are-bringing-catholic-education-back-oakland",
+    "quote": "Because redlining was a common practice in Oakland, it was illegal for people of color to buy homes in many parts of town. Fruitvale was one of the exceptions."
+  },
+  {
+    "title": "Popesplaining",
+    "publication": "Religion Dispatches",
+    "url": "https://religiondispatches.org/popesplaining/",
+    "quote": "We choose our unhappiness. But in its decision to exclude women from serving as priests and in its insistence that, at best, women can be ‘strawberries’ on a theological cake, the Catholic church also chooses unhappiness for us."
+  },
+  {
+    "title": "Lay Down Your Weary Tune",
+    "publication": "Killing the Buddha",
+    "url": "https://killingthebuddha.com/mag/damnation/lay-down-your-weary-tune/",
+    "quote": "Anxiety just might be my muse. Now it is my nation’s muse."
+  },
+  {
+    "title": "The Conservative Resistance Inside the Vatican",
+    "publication": "The New Republic",
+    "url": "https://newrepublic.com/article/151589/conservative-resistance-inside-vatican",
+    "quote": "Long ago, the Vatican and its leadership lost their connection to the ordinary lives of the billion Catholics worldwide. Now, they privilege reputation above truth, and, like many of the current accusations flying around, that instinct is rotten."
+  },
+  {
+    "title": "I Got Shushed at a Yo-Yo Ma Concert",
+    "publication": "Slate",
+    "url": "https://slate.com/culture/2018/10/classical-music-concert-quiet-shushing.html",
+    "quote": "Classical music isn’t dying, but our ways of experiencing it are becoming ossified."
+  }
 ]

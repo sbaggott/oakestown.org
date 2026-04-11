@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Serif', Georgia, serif; background: #fff; color: #333; line-height: 1.7; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .site-name {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 700; font-size: 1.15rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #333; text-decoration: none;
+  }
+  nav ul { display: flex; gap: 32px; list-style: none; }
+  nav a { font-family: 'Josefin Sans', sans-serif; font-size: 0.8rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px; color: #333; text-decoration: none;
+    transition: color 0.2s; }
+  nav a:hover { color: #f26e3f; }
+
+  /* HERO */
+  .hero {
+    display: flex; align-items: center; gap: 60px;
+    max-width: 900px; margin: 0 auto;
+    padding: 80px 40px;
+  }
+  .hero-photo {
+    width: 200px; height: 200px; border-radius: 50%;
+    background: #ddd; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #999; font-size: 0.85rem; font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+  }
+  .hero-text h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 3rem; font-weight: 700; letter-spacing: 2px;
+    color: #333; line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero-text .tagline {
+    font-size: 1.1rem; color: #f26e3f;
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  section { padding: 70px 40px; border-top: 1px solid #eee; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 3px;
+    color: #f26e3f; margin-bottom: 8px;
+  }
+  h2 { font-family: 'Josefin Sans', sans-serif; font-size: 2rem; font-weight: 700;
+    color: #333; margin-bottom: 28px; }
+
+  /* ABOUT */
+  .about-text p { font-size: 1.05rem; margin-bottom: 16px; color: #555; }
+
+  /* BOOKS GRID */
+  .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 32px; }
+  .book-card { display: flex; flex-direction: column; }
+  .book-cover {
+    width: 100%; aspect-ratio: 2/3; max-width: 140px;
+    background: #f0f0f0; border: 1px solid #ddd;
+    display: flex; align-items: center; justify-content: center;
+    color: #bbb; font-size: 0.75rem; margin-bottom: 14px;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  .book-card h3 { font-family: 'Josefin Sans', sans-serif; font-size: 1rem;
+    font-weight: 700; color: #333; margin-bottom: 6px; line-height: 1.3; }
+  .book-card .publisher { font-size: 0.8rem; color: #f26e3f;
+    font-family: 'Josefin Sans', sans-serif; margin-bottom: 8px; }
+  .book-card p { font-size: 0.9rem; color: #666; line-height: 1.6; }
+
+  /* ESSAYS */
+  .essays-list { display: flex; flex-direction: column; gap: 0; }
+  .essay-item {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .essay-pub {
+    font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: #f26e3f; min-width: 120px; flex-shrink: 0;
+  }
+  .essay-title { font-size: 1rem; color: #333; }
+
+  /* CONNECT */
+  .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .connect-item h3 { font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+    color: #f26e3f; margin-bottom: 8px; }
+  .connect-item a { color: #333; font-size: 1rem; }
+  .connect-item a:hover { color: #f26e3f; }
+
+  /* NOTE */
+  .design-note {
+    background: #fff8f5; border: 1px solid #f26e3f;
+    padding: 16px 20px; margin: 0 0 0 0;
+    font-family: 'Josefin Sans', sans-serif; font-size: 0.85rem;
+    color: #555; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="design-note">
+  Design preview — not final, showing style &amp; layout. Author photo and book covers to be added separately.
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="site-name" href="#">Kaya Oakes</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#books">Books</a></li>
+    <li><a href="#essays">Essays</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-photo">author<br>photo</div>
+  <div class="hero-text">
+    <h1>Kaya<br>Oakes</h1>
+    <p class="tagline">Essayist · Journalist · Teacher</p>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About</p>
+    <h2>Kaya Oakes</h2>
+    <div class="about-text">
+      <p>Kaya Oakes is an author of six books. Her essays and journalism have appeared in The New Republic, Slate, Foreign Policy, The Guardian, The Washington Post, Sojourners, National Catholic Reporter, and more.</p>
+      <p>She co-founded the arts and culture magazine Kitchen Sink and serves on the editorial board of Killing the Buddha. She has taught at UC Berkeley's College Writing Programs since 1999 and was born and raised in Oakland, California, where she currently resides.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section id="books">
+  <div class="container">
+    <p class="section-label">Books</p>
+    <h2>Selected Works</h2>
+    <div class="books-grid">
+      <div class="book-card">
+        <div class="book-cover">cover</div>
+        <h3>Not So Sorry: Abusers, False Apologies, and the Limits of Forgiveness</h3>
+        <p class="publisher">Broadleaf Books, 2024</p>
+        <p>A nuanced exploration of forgiveness in cases of abuse and systemic wrongdoing.</p>
+      </div>
+      <div class="book-card">
+        <div class="book-cover">cover</div>
+        <h3>The Defiant Middle: How Women Claim Life's In-Betweens to Remake the World</h3>
+        <p class="publisher">Broadleaf Books, 2021</p>
+        <p>Examines how women navigate societal contradictions and life transitions.</p>
+      </div>
+      <div class="book-card">
+        <div class="book-cover">cover</div>
+        <h3>The Nones Are Alright</h3>
+        <p class="publisher">Orbis Books, 2015</p>
+        <p>Profiles dozens of Gen X and Gen Y individuals exploring religious affiliation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESSAYS -->
+<section id="essays">
+  <div class="container">
+    <p class="section-label">Selected Essays &amp; Journalism</p>
+    <h2>Writing</h2>
+    <div class="essays-list">
+      <div class="essay-item">
+        <span class="essay-pub">Commonweal</span>
+        <span class="essay-title">Ask Better Questions</span>
+      </div>
+      <div class="essay-item">
+        <span class="essay-pub">America</span>
+        <span class="essay-title">Nick Cave Wants to Be Your Spiritual Director</span>
+      </div>
+      <div class="essay-item">
+        <span class="essay-pub">Sojourners</span>
+        <span class="essay-title">What "Drag Nuns" Get Right About Faith</span>
+      </div>
+      <div class="essay-item">
+        <span class="essay-pub">On Being</span>
+        <span class="essay-title">We Are Not Middle Aged</span>
+      </div>
+      <div class="essay-item">
+        <span class="essay-pub">Slate</span>
+        <span class="essay-title">I Got Shushed at a Yo-Yo Ma Concert</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="container">
+    <p class="section-label">Connect</p>
+    <h2>Get in Touch</h2>
+    <div class="connect-grid">
+      <div class="connect-item">
+        <h3>Email</h3>
+        <a href="mailto:kayaoakes@gmail.com">kayaoakes@gmail.com</a>
+      </div>
+      <div class="connect-item">
+        <h3>Newsletter</h3>
+        <a href="https://kayaoakes.substack.com">kayaoakes.substack.com</a>
+      </div>
+      <div class="connect-item">
+        <h3>Literary Agent</h3>
+        <a href="#">Michelle Brower, Trellis Literary Management</a>
+      </div>
+      <div class="connect-item">
+        <h3>Social</h3>
+        <a href="#">Twitter @kayaoakes</a><br>
+        <a href="#">Instagram @kayaoakeswrites</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

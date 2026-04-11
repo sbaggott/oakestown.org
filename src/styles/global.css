@@ -11,7 +11,7 @@
   --border: #eeeeee;
   --font-heading: 'Josefin Sans', sans-serif;
   --font-body: 'Noto Serif', Georgia, serif;
-  --max-width: 900px;
+  --max-width: 700px;
   --header-height: 64px;
 }
 
@@ -90,4 +90,10 @@ section + section {
   font-weight: 700;
   color: var(--text);
   margin-bottom: 32px;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 768px) {
+  section {
+    padding: 60px 24px;
+  }
 }

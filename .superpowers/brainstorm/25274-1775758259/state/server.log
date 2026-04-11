@@ -1,7 +1,0 @@
-{"type":"server-started","port":49399,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:49399","screen_dir":"/Users/sagebaggott/Work/oakestown.org/.superpowers/brainstorm/25274-1775758259/content","state_dir":"/Users/sagebaggott/Work/oakestown.org/.superpowers/brainstorm/25274-1775758259/state"}
-{"type":"screen-added","file":"/Users/sagebaggott/Work/oakestown.org/.superpowers/brainstorm/25274-1775758259/content/section-order.html"}
-{"source":"user-event","type":"click","text":"A\n    \n      Author-first\n      Hero → About → Books → Essays → Connect\n      Lead with who Kaya is, then showcase her work. Feels like meeting the person before the bibliography.","choice":"a","id":null,"timestamp":1775758332234}
-{"source":"user-event","type":"click","text":"A\n    \n      Author-first\n      Hero → About → Books → Essays → Connect\n      Lead with who Kaya is, then showcase her work. Feels like meeting the person before the bibliography.","choice":"a","id":null,"timestamp":1775758348539}
-{"source":"user-event","type":"click","text":"A\n    \n      Author-first\n      Hero → About → Books → Essays → Connect\n      Lead with who Kaya is, then showcase her work. Feels like meeting the person before the bibliography.","choice":"a","id":null,"timestamp":1775758350451}
-{"type":"screen-added","file":"/Users/sagebaggott/Work/oakestown.org/.superpowers/brainstorm/25274-1775758259/content/design-preview.html"}
-{"type":"server-stopped","reason":"idle timeout"}

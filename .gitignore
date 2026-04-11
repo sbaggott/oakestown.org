@@ -13,3 +13,6 @@ dist/
 
 .idea/*
 .superpowers/
+
+.DS_Store
+

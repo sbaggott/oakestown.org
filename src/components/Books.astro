@@ -1,6 +1,5 @@
 ---
 import BookCard from './BookCard.astro';
-import booksData from '../data/books.json';
 
 interface Book {
   title: string;
@@ -11,7 +10,20 @@ interface Book {
   cover: string;
 }
 
-const books = booksData as Book[];
+const db = Astro.locals.runtime.env.prod_d1_oakestown;
+
+const { results: rawBooks } = await db.prepare('SELECT * FROM books ORDER BY sort_order').all();
+const { results: rawDescs } = await db.prepare('SELECT * FROM book_descriptions ORDER BY book_id, position').all();
+const { results: rawEndorsements } = await db.prepare('SELECT * FROM book_endorsements ORDER BY book_id, position').all();
+
+const books = rawBooks.map((book: any): Book => ({
+  title: book.title,
+  publisher: book.publisher,
+  year: book.year,
+  cover: book.cover ?? '',
+  description: (rawDescs as any[]).filter(d => d.book_id === book.id).map(d => d.paragraph),
+  endorsements: (rawEndorsements as any[]).filter(e => e.book_id === book.id).map(e => ({ quote: e.quote, attribution: e.attribution })),
+}));
 ---
 
 <section id="books" class="books" aria-labelledby="books-heading">

@@ -1,0 +1,436 @@
+---
+export const prerender = false;
+import '../../styles/admin.css';
+const db = Astro.locals.runtime.env.prod_d1_oakestown;
+
+const { results: rawBooks } = await db.prepare('SELECT * FROM books ORDER BY sort_order').all();
+const { results: rawDescs } = await db.prepare('SELECT * FROM book_descriptions ORDER BY book_id, position').all();
+const { results: rawEndorsements } = await db.prepare('SELECT * FROM book_endorsements ORDER BY book_id, position').all();
+const { results: essays } = await db.prepare('SELECT * FROM essays ORDER BY sort_order').all();
+
+const books = rawBooks.map((book: any) => ({
+  id: book.id,
+  title: book.title,
+  publisher: book.publisher,
+  year: book.year,
+  cover: book.cover ?? '',
+  sort_order: book.sort_order,
+  description: (rawDescs as any[]).filter(d => d.book_id === book.id).map(d => d.paragraph),
+  endorsements: (rawEndorsements as any[]).filter(e => e.book_id === book.id).map(e => ({ id: e.id, quote: e.quote, attribution: e.attribution })),
+}));
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Oakestown</title>
+</head>
+<body>
+
+<header class="admin-header">
+  <h1>Admin</h1>
+  <form method="POST" action="/api/admin/logout">
+    <button type="submit" class="btn btn-ghost btn-sm">Sign Out</button>
+  </form>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="books">Books</button>
+  <button class="tab-btn" data-tab="essays">Essays</button>
+</nav>
+
+<!-- ==================== BOOKS TAB ==================== -->
+<section class="tab-panel active" id="tab-books">
+
+  <ul class="item-list" id="books-list">
+    {books.map((book: any) => (
+      <li class="item-row" data-id={book.id}>
+        <div>
+          <div class="item-title">{book.title}</div>
+          <div class="item-meta">{book.publisher} · {book.year}</div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-ghost btn-sm" data-action="edit-book" data-id={book.id}>Edit</button>
+          <button class="btn btn-danger btn-sm" data-action="delete-book" data-id={book.id}>Delete</button>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <button class="btn btn-ghost" id="add-book-btn">+ Add Book</button>
+
+  <div id="book-form-container" style="display:none; margin-top:24px;">
+    <div class="form-section">
+      <h3 id="book-form-title">New Book</h3>
+      <input type="hidden" id="book-id" value="" />
+
+      <div class="field-row">
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="book-title" />
+        </div>
+        <div class="field">
+          <label>Publisher</label>
+          <input type="text" id="book-publisher" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Year</label>
+          <input type="number" id="book-year" />
+        </div>
+        <div class="field">
+          <label>Cover Path</label>
+          <input type="text" id="book-cover" placeholder="images/books/filename.jpg" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Sort Order</label>
+        <input type="number" id="book-sort-order" value="0" />
+      </div>
+
+      <div class="field">
+        <label>Description Paragraphs</label>
+        <div class="dynamic-list" id="book-descriptions"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="add-desc-btn">+ Add Paragraph</button>
+      </div>
+
+      <div class="field">
+        <label>Endorsements</label>
+        <div class="dynamic-list" id="book-endorsements"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="add-endorsement-btn">+ Add Endorsement</button>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn" id="save-book-btn">Save Book</button>
+        <button type="button" class="btn btn-ghost" id="cancel-book-btn">Cancel</button>
+        <span class="status-msg" id="book-status"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ESSAYS TAB ==================== -->
+<section class="tab-panel" id="tab-essays">
+
+  <ul class="item-list" id="essays-list">
+    {(essays as any[]).map((essay: any) => (
+      <li class="item-row" data-id={essay.id}>
+        <div>
+          <div class="item-title">{essay.title}</div>
+          <div class="item-meta">{essay.publication}</div>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-ghost btn-sm" data-action="edit-essay" data-id={essay.id}>Edit</button>
+          <button class="btn btn-danger btn-sm" data-action="delete-essay" data-id={essay.id}>Delete</button>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <button class="btn btn-ghost" id="add-essay-btn">+ Add Essay</button>
+
+  <div id="essay-form-container" style="display:none; margin-top:24px;">
+    <div class="form-section">
+      <h3 id="essay-form-title">New Essay</h3>
+      <input type="hidden" id="essay-id" value="" />
+
+      <div class="field-row">
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="essay-title" />
+        </div>
+        <div class="field">
+          <label>Publication</label>
+          <input type="text" id="essay-publication" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>URL</label>
+          <input type="url" id="essay-url" />
+        </div>
+        <div class="field">
+          <label>Sort Order</label>
+          <input type="number" id="essay-sort-order" value="0" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Pull Quote</label>
+        <textarea id="essay-quote" rows="4"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn" id="save-essay-btn">Save Essay</button>
+        <button type="button" class="btn btn-ghost" id="cancel-essay-btn">Cancel</button>
+        <span class="status-msg" id="essay-status"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ booksData: books, essaysData: essays }}>
+  // ---- Tab switching ----
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- Dynamic item builders (DOM-based, no innerHTML with user data) ----
+  function makeRemoveBtn(selector) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-danger btn-sm';
+    btn.textContent = '✕';
+    btn.addEventListener('click', () => btn.closest(selector).remove());
+    return btn;
+  }
+
+  function addDescParagraph(value = '') {
+    const list = document.getElementById('book-descriptions');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item';
+
+    const fields = document.createElement('div');
+    fields.className = 'dynamic-item-fields';
+
+    const ta = document.createElement('textarea');
+    ta.rows = 3;
+    ta.placeholder = 'Paragraph text (HTML allowed)';
+    ta.value = value;
+
+    fields.appendChild(ta);
+    item.appendChild(fields);
+    item.appendChild(makeRemoveBtn('.dynamic-item'));
+    list.appendChild(item);
+  }
+
+  function addEndorsement(quote = '', attribution = '') {
+    const list = document.getElementById('book-endorsements');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item';
+
+    const fields = document.createElement('div');
+    fields.className = 'dynamic-item-fields';
+
+    const ta = document.createElement('textarea');
+    ta.rows = 3;
+    ta.placeholder = 'Endorsement quote';
+    ta.value = quote;
+
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.placeholder = 'Attribution (name, title)';
+    inp.value = attribution;
+
+    fields.appendChild(ta);
+    fields.appendChild(inp);
+    item.appendChild(fields);
+    item.appendChild(makeRemoveBtn('.dynamic-item'));
+    list.appendChild(item);
+  }
+
+  document.getElementById('add-desc-btn').addEventListener('click', () => addDescParagraph());
+  document.getElementById('add-endorsement-btn').addEventListener('click', () => addEndorsement());
+
+  // ---- Delegated edit/delete listeners ----
+  document.getElementById('books-list').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = Number(btn.dataset.id);
+    if (btn.dataset.action === 'edit-book') editBook(id);
+    else if (btn.dataset.action === 'delete-book') deleteBook(id);
+  });
+
+  document.getElementById('essays-list').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = Number(btn.dataset.id);
+    if (btn.dataset.action === 'edit-essay') editEssay(id);
+    else if (btn.dataset.action === 'delete-essay') deleteEssay(id);
+  });
+
+  // ---- Book form ----
+  document.getElementById('add-book-btn').addEventListener('click', () => {
+    clearBookForm();
+    document.getElementById('book-form-title').textContent = 'New Book';
+    document.getElementById('book-form-container').style.display = 'block';
+    document.getElementById('book-form-container').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('cancel-book-btn').addEventListener('click', () => {
+    document.getElementById('book-form-container').style.display = 'none';
+    clearBookForm();
+  });
+
+  function clearBookForm() {
+    document.getElementById('book-id').value = '';
+    document.getElementById('book-title').value = '';
+    document.getElementById('book-publisher').value = '';
+    document.getElementById('book-year').value = '';
+    document.getElementById('book-cover').value = '';
+    document.getElementById('book-sort-order').value = '0';
+    document.getElementById('book-descriptions').replaceChildren();
+    document.getElementById('book-endorsements').replaceChildren();
+    setStatus('book-status', '');
+  }
+
+  function editBook(id) {
+    const book = booksData.find(b => b.id === id);
+    if (!book) return;
+    clearBookForm();
+    document.getElementById('book-id').value = id;
+    document.getElementById('book-form-title').textContent = 'Edit Book';
+    document.getElementById('book-title').value = book.title;
+    document.getElementById('book-publisher').value = book.publisher;
+    document.getElementById('book-year').value = book.year;
+    document.getElementById('book-cover').value = book.cover ?? '';
+    document.getElementById('book-sort-order').value = book.sort_order ?? 0;
+    (book.description ?? []).forEach(p => addDescParagraph(p));
+    (book.endorsements ?? []).forEach(e => addEndorsement(e.quote, e.attribution));
+    document.getElementById('book-form-container').style.display = 'block';
+    document.getElementById('book-form-container').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function deleteBook(id) {
+    if (!confirm('Delete this book?')) return;
+    const res = await fetch(`/api/admin/books/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      document.querySelector(`#books-list [data-id="${id}"]`)?.remove();
+      const idx = booksData.findIndex(b => b.id === id);
+      if (idx !== -1) booksData.splice(idx, 1);
+    } else {
+      alert('Delete failed.');
+    }
+  }
+
+  document.getElementById('save-book-btn').addEventListener('click', async () => {
+    const id = document.getElementById('book-id').value;
+    const descItems = document.querySelectorAll('#book-descriptions .dynamic-item textarea');
+    const endorsementItems = document.querySelectorAll('#book-endorsements .dynamic-item');
+
+    const description = Array.from(descItems).map(t => t.value.trim()).filter(Boolean);
+    const endorsements = Array.from(endorsementItems).map(item => ({
+      quote: item.querySelector('textarea').value.trim(),
+      attribution: item.querySelector('input').value.trim(),
+    })).filter(e => e.quote);
+
+    const payload = {
+      title: document.getElementById('book-title').value.trim(),
+      publisher: document.getElementById('book-publisher').value.trim(),
+      year: Number(document.getElementById('book-year').value),
+      cover: document.getElementById('book-cover').value.trim() || null,
+      sort_order: Number(document.getElementById('book-sort-order').value),
+      description,
+      endorsements,
+    };
+
+    if (!payload.title || !payload.publisher || !payload.year) {
+      setStatus('book-status', 'Title, publisher, and year are required.', 'error');
+      return;
+    }
+
+    const url = id ? `/api/admin/books/${id}` : '/api/admin/books';
+    const method = id ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+    if (res.ok) {
+      setStatus('book-status', 'Saved!', 'success');
+      setTimeout(() => location.reload(), 800);
+    } else {
+      setStatus('book-status', 'Save failed.', 'error');
+    }
+  });
+
+  // ---- Essay form ----
+  document.getElementById('add-essay-btn').addEventListener('click', () => {
+    clearEssayForm();
+    document.getElementById('essay-form-title').textContent = 'New Essay';
+    document.getElementById('essay-form-container').style.display = 'block';
+    document.getElementById('essay-form-container').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  document.getElementById('cancel-essay-btn').addEventListener('click', () => {
+    document.getElementById('essay-form-container').style.display = 'none';
+    clearEssayForm();
+  });
+
+  function clearEssayForm() {
+    document.getElementById('essay-id').value = '';
+    document.getElementById('essay-title').value = '';
+    document.getElementById('essay-publication').value = '';
+    document.getElementById('essay-url').value = '';
+    document.getElementById('essay-quote').value = '';
+    document.getElementById('essay-sort-order').value = '0';
+    setStatus('essay-status', '');
+  }
+
+  function editEssay(id) {
+    const essay = essaysData.find(e => e.id === id);
+    if (!essay) return;
+    clearEssayForm();
+    document.getElementById('essay-id').value = id;
+    document.getElementById('essay-form-title').textContent = 'Edit Essay';
+    document.getElementById('essay-title').value = essay.title;
+    document.getElementById('essay-publication').value = essay.publication;
+    document.getElementById('essay-url').value = essay.url ?? '';
+    document.getElementById('essay-quote').value = essay.quote;
+    document.getElementById('essay-sort-order').value = essay.sort_order ?? 0;
+    document.getElementById('essay-form-container').style.display = 'block';
+    document.getElementById('essay-form-container').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function deleteEssay(id) {
+    if (!confirm('Delete this essay?')) return;
+    const res = await fetch(`/api/admin/essays/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      document.querySelector(`#essays-list [data-id="${id}"]`)?.remove();
+      const idx = essaysData.findIndex(e => e.id === id);
+      if (idx !== -1) essaysData.splice(idx, 1);
+    } else {
+      alert('Delete failed.');
+    }
+  }
+
+  document.getElementById('save-essay-btn').addEventListener('click', async () => {
+    const id = document.getElementById('essay-id').value;
+    const payload = {
+      title: document.getElementById('essay-title').value.trim(),
+      publication: document.getElementById('essay-publication').value.trim(),
+      url: document.getElementById('essay-url').value.trim() || null,
+      quote: document.getElementById('essay-quote').value.trim(),
+      sort_order: Number(document.getElementById('essay-sort-order').value),
+    };
+
+    if (!payload.title || !payload.publication || !payload.quote) {
+      setStatus('essay-status', 'Title, publication, and quote are required.', 'error');
+      return;
+    }
+
+    const url = id ? `/api/admin/essays/${id}` : '/api/admin/essays';
+    const method = id ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+    if (res.ok) {
+      setStatus('essay-status', 'Saved!', 'success');
+      setTimeout(() => location.reload(), 800);
+    } else {
+      setStatus('essay-status', 'Save failed.', 'error');
+    }
+  });
+
+  function setStatus(elId, msg, type = '') {
+    const el = document.getElementById(elId);
+    el.textContent = msg;
+    el.className = 'status-msg' + (type ? ' ' + type : '');
+  }
+</script>
+
+</body>
+</html>

@@ -1,6 +1,4 @@
 ---
-import essaysData from '../data/essays.json';
-
 interface Essay {
   title: string;
   publication: string;
@@ -8,7 +6,9 @@ interface Essay {
   quote: string;
 }
 
-const essays = essaysData as Essay[];
+const db = Astro.locals.runtime.env.prod_d1_oakestown;
+const { results } = await db.prepare('SELECT * FROM essays ORDER BY sort_order').all();
+const essays = results as unknown as Essay[];
 ---
 
 <section id="writing" class="essays" aria-labelledby="essays-heading">
@@ -26,7 +26,7 @@ const essays = essaysData as Essay[];
               <span class="essay-pub">{essay.publication}</span>
             </div>
             <div>
-              <p class="quote" set:html={`“${essay.quote}”`}/>
+              <p class="quote" set:html={`"${essay.quote}"`}/>
             </div>
         </li>
       ))}

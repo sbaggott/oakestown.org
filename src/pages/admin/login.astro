@@ -1,0 +1,134 @@
+---
+export const prerender = false;
+import { compare } from 'bcryptjs';
+import { v4 as uuidv4 } from 'uuid';
+
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const password = form.get('password') as string;
+
+  const db = Astro.locals.runtime.env.prod_d1_oakestown;
+  const passwordHash = Astro.locals.runtime.env.ADMIN_PASSWORD_HASH;
+
+  // Clean up expired sessions
+  await db.prepare("DELETE FROM admin_sessions WHERE expires_at <= datetime('now')").run();
+
+  const valid = await compare(password, passwordHash);
+
+  if (valid) {
+    const sessionId = uuidv4();
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().replace('T', ' ').slice(0, 19);
+    await db
+      .prepare('INSERT INTO admin_sessions (id, expires_at) VALUES (?, ?)')
+      .bind(sessionId, expiresAt)
+      .run();
+
+    Astro.cookies.set('session', sessionId, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      path: '/',
+      maxAge: 24 * 60 * 60,
+    });
+
+    return Astro.redirect('/admin');
+  } else {
+    error = 'Incorrect password.';
+  }
+}
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Oakestown</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --accent: #f26e3f;
+      --text: #333333;
+      --border: #eeeeee;
+      --font-heading: 'Josefin Sans', sans-serif;
+      --font-body: 'Noto Serif', serif;
+    }
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      width: 100%;
+      max-width: 360px;
+      padding: 40px;
+      border: 1px solid var(--border);
+    }
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0 0 32px;
+    }
+    label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 20px;
+    }
+    input[type="password"]:focus { border-color: var(--accent); }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+    }
+    button:hover { opacity: 0.9; }
+    .error {
+      color: #c0392b;
+      font-size: 0.875rem;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>Admin</h1>
+    {error && <p class="error">{error}</p>}
+    <form method="POST">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required autofocus />
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</body>
+</html>

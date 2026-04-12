@@ -80,3 +80,38 @@ INSERT INTO book_endorsements (id, book_id, quote, attribution, position) VALUES
   (20, 5, 'Relays indie''s development… with uncommon insight… [and] makes an impassioned, optimistic case for indie''s vitality that doesn''t assume readers are coming to [the] book already well versed in the subject… A comprehensive approach to a subject that is too often reduced to discrete parts… Fresh and perceptive.', 'San Francisco Chronicle (2009 Notable Book)', 1),
   (21, 5, '[An] absorbing nonfiction study of indie culture… Oakes is no dry outsider. She believes in what she describes, she contributes to it and she speaks its language.', 'The Plain Dealer (Cleveland)', 2),
   (22, 5, '[A] lively and highly literate explication of various American indie scenes and art forms… [Oakes''] focus on independent publishing and writing — provides a worthy parallel narrative to Michael Azzerad''s essential indie music history, This Band Could Be Your Life… Oakes begins the book with a much appreciated primer on some of the intellectual forebears of her book''s central characters, including the poets Frank O''Hara and Allen Ginsberg and the revolutionary street theater group the Diggers. As an explanation and excavation of the already fading recent past, it is essential reading.', 'Publishers Weekly', 3);
+
+-- essays
+DROP TABLE IF EXISTS essays;
+CREATE TABLE IF NOT EXISTS essays (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  title       TEXT    NOT NULL,
+  publication TEXT    NOT NULL,
+  url         TEXT,
+  quote       TEXT    NOT NULL,
+  sort_order  INTEGER NOT NULL DEFAULT 0
+);
+INSERT INTO essays (title, publication, url, quote, sort_order) VALUES
+  ('Ask Better Questions', 'Commonweal', 'https://www.commonwealmagazine.org/ask-better-questions', 'People have never stopped seeking God, transcendence, spirit, or community. They''re just not finding any of those things in church.', 1),
+  ('The "New Menopause" Is the Same Old Patriarchal BS', 'Residuum', 'https://kayaoakes.substack.com/p/the-new-menopause-is-the-same-old', 'The new midlife, as it turns out, is much more accessible if you''re rich.', 2),
+  ('Whose Sin Is It Anyway', 'The Revealer', 'https://therevealer.org/whose-sin-is-it-anyway-catholics-abortion-and-what-comes-next/', 'For many in the coming weeks, months, and years who will see suffering and death wrought by the end of Roe, including another 10-year-old girl in Ohio, that same conscience may well lead them away from the church that brought about that end.', 3),
+  ('What "Drag Nuns" Get Right About Faith', 'Sojourners', 'https://sojo.net/articles/what-drag-nuns-get-right-about-catholic-faith', 'The daughter of a king, Wilgefortis was promised in marriage to a man she didn''t want, and in answer to her prayers for liberation, <a href="https://artuk.org/discover/stories/saint-wilgefortis-a-bearded-woman-with-a-queer-history">God caused her to sprout a miraculous beard.</a>', 4),
+  ('Nick Cave Wants to Be Your Spiritual Director', 'America', 'https://www.americamagazine.org/arts-culture/2022/05/19/nick-cave-red-hand-files-242982', 'Our secular age still needs preachers, but even more, it needs pastors.', 5),
+  ('On Forgiveness, Clergy Abuse, and the Need for New Understandings', 'The Revealer', 'https://therevealer.org/from-the-archive-on-forgiveness-clergy-abuse-and-the-need-for-new-understandings/', 'The Church can write checks to its heart''s content, bankrupt dioceses, stage Reparation Masses, build "healing gardens," and beg for forgiveness. But until it owns up to the fact that it has not allowed adequate space for victims to express themselves, confront their abusers, and thus begin to heal, no true acts of atonement have been performed.', 6),
+  ('Letter from California', 'Commonweal', 'https://www.commonwealmagazine.org/letter-california-0', 'Californians have adapted. We know what to do in a disaster. Stop, drop, and do your best to hold on.', 7),
+  ('This is Your Soul on Mysticism', 'America', 'https://www.americamagazine.org/faith/2020/12/17/mysticism-covid-19-julian-norwich-239506', 'Some of us work at home, anchorites tethered to our Wi-Fi connections, where we peer not through windows into the outside world like Julian, but into virtual windows that lead us into other people''s rooms, where they sit peering back into our rooms, monastic cells upon monastic cells, multiplying and dividing as we log on and off.', 8),
+  ('We Are Not Middle Aged', 'On Being', 'https://onbeing.org/blog/kaya-oakes-we-are-not-middle-aged-what-medieval-women-taught-me-about-my-40s/', 'It starts happening before you realize it and by the time you do, the slow, grinding erasures have already begun.', 9),
+  ('Mary: Our often reimagined, always radical mother', 'Religion News Service', 'https://www.oakestown.org/essays/Our%20often%20reimagined,%20always%20radical%20mother', 'Mary [is not] a sentimentally perfect woman, meek, mild and passive, a religious Hallmark card who has come to represent the idealized mother figure most of our own mothers would struggle to measure up to.', 10),
+  ('A School Grows in Oakland', 'America', 'https://www.americamagazine.org/faith/2020/03/06/how-jesuits-and-christian-brothers-are-bringing-catholic-education-back-oakland', 'Because redlining was a common practice in Oakland, it was illegal for people of color to buy homes in many parts of town. Fruitvale was one of the exceptions.', 11),
+  ('Popesplaining', 'Religion Dispatches', 'https://religiondispatches.org/popesplaining/', 'We choose our unhappiness. But in its decision to exclude women from serving as priests and in its insistence that, at best, women can be ''strawberries'' on a theological cake, the Catholic church also chooses unhappiness for us.', 12),
+  ('Lay Down Your Weary Tune', 'Killing the Buddha', 'https://killingthebuddha.com/mag/damnation/lay-down-your-weary-tune/', 'Anxiety just might be my muse. Now it is my nation''s muse.', 13),
+  ('The Conservative Resistance Inside the Vatican', 'The New Republic', 'https://newrepublic.com/article/151589/conservative-resistance-inside-vatican', 'Long ago, the Vatican and its leadership lost their connection to the ordinary lives of the billion Catholics worldwide. Now, they privilege reputation above truth, and, like many of the current accusations flying around, that instinct is rotten.', 14),
+  ('I Got Shushed at a Yo-Yo Ma Concert', 'Slate', 'https://slate.com/culture/2018/10/classical-music-concert-quiet-shushing.html', 'Classical music isn''t dying, but our ways of experiencing it are becoming ossified.', 15);
+
+-- admin sessions
+DROP TABLE IF EXISTS admin_sessions;
+CREATE TABLE IF NOT EXISTS admin_sessions (
+  id         TEXT PRIMARY KEY,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  expires_at TEXT NOT NULL
+);

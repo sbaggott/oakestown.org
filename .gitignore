@@ -14,6 +14,7 @@ dist/
 .idea/*
 .superpowers/
 .playwright-mcp
+
 .DS_Store
 
 .dev.vars

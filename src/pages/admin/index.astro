@@ -48,14 +48,18 @@ const books = rawBooks.map((book: any) => ({
         <h3>About Paragraphs</h3>
         <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.9rem;">HTML is supported (e.g. <code>&lt;em&gt;</code>,
             <code>&lt;a&gt;</code>).</p>
+        <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.9rem;">You can reorder the paragraphs by dragging the boxes up or down.</p>
         <div class="dynamic-list" id="about-paragraphs">
           {(aboutParagraphs as any[]).map((p: any) => (
-                  <div class="dynamic-item">
-                      <div class="dynamic-item-fields">
-                          <textarea rows={4} data-about-paragraph>{p.content}</textarea>
-                      </div>
-                      <button type="button" class="btn btn-danger btn-sm" data-remove-paragraph>✕</button>
-                  </div>
+            <div class="dynamic-item about-item" draggable="true">
+              <div class="dynamic-item-fields">
+                <textarea rows={4} data-about-paragraph draggable="false">{p.content}</textarea>
+              </div>
+              <div class="about-item-controls">
+                <span class="drag-handle" aria-hidden="true">⠿</span>
+                <button type="button" class="btn btn-danger btn-sm" data-remove-paragraph>✕</button>
+              </div>
+            </div>
           ))}
         </div>
         <button type="button" class="btn btn-ghost btn-sm" id="add-about-paragraph-btn" style="margin-top: 8px;">+ Add
@@ -462,33 +466,91 @@ const books = rawBooks.map((book: any) => ({
   function addAboutParagraph(value = '') {
     const list = document.getElementById('about-paragraphs');
     const item = document.createElement('div');
-    item.className = 'dynamic-item';
+    item.className = 'dynamic-item about-item';
+    item.draggable = true;
 
     const fields = document.createElement('div');
     fields.className = 'dynamic-item-fields';
-
     const ta = document.createElement('textarea');
     ta.rows = 4;
     ta.placeholder = 'Paragraph text (HTML allowed)';
     ta.dataset.aboutParagraph = '';
+    ta.draggable = false;
     ta.value = value;
-
     fields.appendChild(ta);
-    item.appendChild(fields);
+
+    const controls = document.createElement('div');
+    controls.className = 'about-item-controls';
+
+    const handle = document.createElement('span');
+    handle.className = 'drag-handle';
+    handle.setAttribute('aria-hidden', 'true');
+    handle.textContent = '⠿';
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.className = 'btn btn-danger btn-sm';
     removeBtn.textContent = '✕';
     removeBtn.dataset.removeParagraph = '';
-    item.appendChild(removeBtn);
 
+    controls.appendChild(handle);
+    controls.appendChild(removeBtn);
+
+    item.appendChild(fields);
+    item.appendChild(controls);
     list.appendChild(item);
   }
 
   document.getElementById('about-paragraphs').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-remove-paragraph]');
-    if (btn) btn.closest('.dynamic-item').remove();
+    if (btn) btn.closest('.about-item').remove();
+  });
+
+  // ---- Drag-and-drop reordering ----
+  let dragSrc = null;
+
+  const aboutList = document.getElementById('about-paragraphs');
+
+  aboutList.addEventListener('dragstart', (e) => {
+    const item = e.target.closest('.about-item');
+    if (!item) return;
+    dragSrc = item;
+    item.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  aboutList.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const item = e.target.closest('.about-item');
+    if (!item || item === dragSrc) return;
+    aboutList.querySelectorAll('.about-item').forEach(i => i.classList.remove('drag-over-top', 'drag-over-bottom'));
+    const midY = item.getBoundingClientRect().top + item.offsetHeight / 2;
+    item.classList.add(e.clientY < midY ? 'drag-over-top' : 'drag-over-bottom');
+  });
+
+  aboutList.addEventListener('dragleave', (e) => {
+    const item = e.target.closest('.about-item');
+    if (item) item.classList.remove('drag-over-top', 'drag-over-bottom');
+  });
+
+  aboutList.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const item = e.target.closest('.about-item');
+    if (!item || item === dragSrc) return;
+    const midY = item.getBoundingClientRect().top + item.offsetHeight / 2;
+    item.classList.remove('drag-over-top', 'drag-over-bottom');
+    if (e.clientY < midY) {
+      aboutList.insertBefore(dragSrc, item);
+    } else {
+      aboutList.insertBefore(dragSrc, item.nextSibling);
+    }
+  });
+
+  aboutList.addEventListener('dragend', () => {
+    if (dragSrc) dragSrc.classList.remove('dragging');
+    dragSrc = null;
+    aboutList.querySelectorAll('.about-item').forEach(i => i.classList.remove('drag-over-top', 'drag-over-bottom'));
   });
 
   document.getElementById('add-about-paragraph-btn').addEventListener('click', () => addAboutParagraph());

@@ -6,6 +6,7 @@ const { results: rawBooks } = await db.prepare('SELECT * FROM books ORDER BY sor
 const { results: rawDescs } = await db.prepare('SELECT * FROM book_descriptions ORDER BY book_id, position').all();
 const { results: rawEndorsements } = await db.prepare('SELECT * FROM book_endorsements ORDER BY book_id, position').all();
 const { results: essays } = await db.prepare('SELECT * FROM essays ORDER BY sort_order').all();
+const { results: aboutParagraphs } = await db.prepare('SELECT * FROM about_paragraphs ORDER BY position').all();
 
 const books = rawBooks.map((book: any) => ({
   id: book.id,
@@ -36,12 +37,39 @@ const books = rawBooks.map((book: any) => ({
 </header>
 
 <nav class="tabs">
-  <button class="tab-btn active" data-tab="books">Books</button>
+  <button class="tab-btn active" data-tab="about">About</button>
+  <button class="tab-btn" data-tab="books">Books</button>
   <button class="tab-btn" data-tab="essays">Essays</button>
 </nav>
 
+<!-- ==================== ABOUT TAB ==================== -->
+<section class="tab-panel active" id="tab-about">
+    <div class="form-section">
+        <h3>About Paragraphs</h3>
+        <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.9rem;">HTML is supported (e.g. <code>&lt;em&gt;</code>,
+            <code>&lt;a&gt;</code>).</p>
+        <div class="dynamic-list" id="about-paragraphs">
+          {(aboutParagraphs as any[]).map((p: any) => (
+                  <div class="dynamic-item">
+                      <div class="dynamic-item-fields">
+                          <textarea rows={4} data-about-paragraph>{p.content}</textarea>
+                      </div>
+                      <button type="button" class="btn btn-danger btn-sm" data-remove-paragraph>✕</button>
+                  </div>
+          ))}
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="add-about-paragraph-btn" style="margin-top: 8px;">+ Add
+            Paragraph
+        </button>
+        <div class="form-actions" style="margin-top: 16px;">
+            <button type="button" class="btn" id="save-about-btn">Save About</button>
+            <span class="status-msg" id="about-status"></span>
+        </div>
+    </div>
+</section>
+
 <!-- ==================== BOOKS TAB ==================== -->
-<section class="tab-panel active" id="tab-books">
+<section class="tab-panel" id="tab-books">
 
   <ul class="item-list" id="books-list">
     {books.map((book: any) => (
@@ -429,6 +457,60 @@ const books = rawBooks.map((book: any) => ({
     el.textContent = msg;
     el.className = 'status-msg' + (type ? ' ' + type : '');
   }
+
+  // ---- About tab ----
+  function addAboutParagraph(value = '') {
+    const list = document.getElementById('about-paragraphs');
+    const item = document.createElement('div');
+    item.className = 'dynamic-item';
+
+    const fields = document.createElement('div');
+    fields.className = 'dynamic-item-fields';
+
+    const ta = document.createElement('textarea');
+    ta.rows = 4;
+    ta.placeholder = 'Paragraph text (HTML allowed)';
+    ta.dataset.aboutParagraph = '';
+    ta.value = value;
+
+    fields.appendChild(ta);
+    item.appendChild(fields);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'btn btn-danger btn-sm';
+    removeBtn.textContent = '✕';
+    removeBtn.dataset.removeParagraph = '';
+    item.appendChild(removeBtn);
+
+    list.appendChild(item);
+  }
+
+  document.getElementById('about-paragraphs').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-remove-paragraph]');
+    if (btn) btn.closest('.dynamic-item').remove();
+  });
+
+  document.getElementById('add-about-paragraph-btn').addEventListener('click', () => addAboutParagraph());
+
+  document.getElementById('save-about-btn').addEventListener('click', async () => {
+    const paragraphs = Array.from(
+      document.querySelectorAll('#about-paragraphs [data-about-paragraph]')
+    ).map(ta => ta.value.trim()).filter(Boolean);
+
+    const res = await fetch('/api/admin/about', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ paragraphs }),
+    });
+
+    if (res.ok) {
+      setStatus('about-status', 'Saved!', 'success');
+      setTimeout(() => location.reload(), 800);
+    } else {
+      setStatus('about-status', 'Save failed.', 'error');
+    }
+  });
 </script>
 
 </body>

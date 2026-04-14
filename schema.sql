@@ -108,6 +108,19 @@ INSERT INTO essays (title, publication, url, quote, sort_order) VALUES
   ('The Conservative Resistance Inside the Vatican', 'The New Republic', 'https://newrepublic.com/article/151589/conservative-resistance-inside-vatican', 'Long ago, the Vatican and its leadership lost their connection to the ordinary lives of the billion Catholics worldwide. Now, they privilege reputation above truth, and, like many of the current accusations flying around, that instinct is rotten.', 14),
   ('I Got Shushed at a Yo-Yo Ma Concert', 'Slate', 'https://slate.com/culture/2018/10/classical-music-concert-quiet-shushing.html', 'Classical music isn''t dying, but our ways of experiencing it are becoming ossified.', 15);
 
+-- about section paragraphs
+DROP TABLE IF EXISTS about_paragraphs;
+CREATE TABLE IF NOT EXISTS about_paragraphs (
+  id        INTEGER PRIMARY KEY AUTOINCREMENT,
+  content   TEXT    NOT NULL,
+  position  INTEGER NOT NULL DEFAULT 0
+);
+INSERT INTO about_paragraphs (content, position) VALUES
+  ('Kaya Oakes is the author of six books. Her most recent works include <em>Not So Sorry: Abusers, False Apologies and the Limits of Forgiveness</em> (Broadleaf Books, 2024), <em>The Defiant Middle: How Women Claim Life''s In Betweens to Remake the World</em> (Broadleaf Books, 2021), <em>The Nones Are Alright</em> (Orbis Books, 2015), and <em>Radical Reinvention</em> (Counterpoint Press, 2012).', 1),
+  ('Her essays and journalism have appeared in The Revealer, The New Republic, Slate, Foreign Policy, The Guardian, The Washington Post, Sojourners, National Catholic Reporter, Commonweal, Religion Dispatches, Tricycle, On Being, and America. She co-founded the arts and culture magazine Kitchen Sink and serves on the editorial board of Killing the Buddha.', 2),
+  ('She received the Religion News Association''s award for best commentary in 2021 and has appeared on CBC, NPR, and various podcasts. She has lectured at universities including Fordham, Syracuse, Notre Dame, Villanova, USC, and UC Berkeley, and was selected to study religion writing at the Vatican in 2016.', 3),
+  ('Since 1999, she has taught creative nonfiction, cultural criticism, composition, and research writing at UC Berkeley''s College Writing Programs. She was born and raised in Oakland, California, where she currently resides.', 4);
+
 -- admin sessions
 DROP TABLE IF EXISTS admin_sessions;
 CREATE TABLE IF NOT EXISTS admin_sessions (

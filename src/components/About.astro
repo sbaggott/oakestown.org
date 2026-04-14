@@ -1,35 +1,15 @@
 ---
-
+const db = Astro.locals.runtime.env.prod_d1_oakestown;
+const { results: paragraphs } = await db.prepare('SELECT * FROM about_paragraphs ORDER BY position').all();
 ---
 
 <section id="about" class="about" aria-labelledby="about-heading">
   <div class="container">
     <h2 class="section-title" id="about-heading">About</h2>
     <div class="about-body">
-      <p>
-        Kaya Oakes is the author of six books. Her most recent works include
-        <em>Not So Sorry: Abusers, False Apologies and the Limits of Forgiveness</em> (Broadleaf Books, 2024),
-        <em>The Defiant Middle: How Women Claim Life's In Betweens to Remake the World</em> (Broadleaf Books, 2021),
-        <em>The Nones Are Alright</em> (Orbis Books, 2015), and
-        <em>Radical Reinvention</em> (Counterpoint Press, 2012).
-      </p>
-      <p>
-        Her essays and journalism have appeared in The Revealer, The New Republic, Slate, Foreign Policy,
-        The Guardian, The Washington Post, Sojourners, National Catholic Reporter, Commonweal,
-        Religion Dispatches, Tricycle, On Being, and America. She co-founded the arts and culture
-        magazine Kitchen Sink and serves on the editorial board of Killing the Buddha.
-      </p>
-      <p>
-        She received the Religion News Association's award for best commentary in 2021
-        and has appeared on CBC, NPR, and various podcasts. She has lectured at universities
-        including Fordham, Syracuse, Notre Dame, Villanova, USC, and UC Berkeley,
-        and was selected to study religion writing at the Vatican in 2016.
-      </p>
-      <p>
-        Since 1999, she has taught creative nonfiction, cultural criticism, composition,
-        and research writing at UC Berkeley's College Writing Programs.
-        She was born and raised in Oakland, California, where she currently resides.
-      </p>
+      {(paragraphs as string[]).map((p: any) => (
+        <p set:html={p.content} />
+      ))}
     </div>
   </div>
 </section>
